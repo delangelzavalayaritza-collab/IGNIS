@@ -1,51 +1,416 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IGNIS</title>
-  <link rel="stylesheet" href="btn.css">
+<meta charset="UTF-8">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+<title>IGNIS</title>
+
+<link rel="stylesheet" href="btn.css">
+
+<style>
+
+/* ======================
+   PANTALLA GIRAR CELU
+====================== */
+
+#rotateMessage{
+  position:fixed;
+  inset:0;
+  background:#0b0b0b;
+  color:white;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  z-index:99999;
+  padding:20px;
+}
+
+.rotate-box{
+  max-width:320px;
+}
+
+.rotate-box h2{
+  font-size:2rem;
+  margin-bottom:15px;
+}
+
+.rotate-box p{
+  font-size:1.1rem;
+}
+
+/* ======================
+   BOTON ACCESIBILIDAD
+====================== */
+
+.voice-btn{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:9999;
+
+  border:none;
+  border-radius:50px;
+  padding:12px 18px;
+
+  background:rgba(255,102,0,.95);
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+
+  box-shadow:0 4px 15px rgba(255,100,0,.35);
+  transition:.3s;
+}
+
+.voice-btn:hover{
+  transform:scale(1.05);
+}
+
+/* ======================
+   CELULAR
+====================== */
+
+@media screen and (max-width:900px){
+
+  /* Vertical */
+  @media (orientation:portrait){
+
+    #rotateMessage{
+      display:flex;
+    }
+
+    .hero{
+      display:none !important;
+    }
+  }
+
+  /* Horizontal */
+  @media (orientation:landscape){
+
+    html,
+    body{
+      overflow:hidden;
+      height:100%;
+    }
+
+    .hero{
+      display:flex !important;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      min-height:100vh;
+      padding:15px;
+    }
+
+    /* IMPORTANTE:
+       QUITE EL SCALE
+       QUE HACIA TODO CHIQUITO 😭
+    */
+
+    .title{
+      font-size:4rem !important;
+    }
+
+    .subtitle{
+      font-size:1.4rem !important;
+    }
+
+    .fire-button{
+      transform:scale(1.1);
+    }
+
+    .ut-logo{
+      width:80px !important;
+    }
+
+    .floating-dragon{
+      width:150px !important;
+    }
+
+    .voice-btn{
+      bottom:12px;
+      right:12px;
+      font-size:13px;
+      padding:10px 15px;
+    }
+  }
+}
+
+</style>
 </head>
+
 <body>
-  <audio id="introSound" autoplay loop>
+
+<!-- AUDIO -->
+<audio id="introSound" autoplay loop>
   <source src="cutt.mp3" type="audio/mpeg">
-  </audio>
+</audio>
 
+<!-- MENSAJE GIRAR -->
+<div id="rotateMessage">
+  <div class="rotate-box">
+    <h2>📱 Gira tu dispositivo</h2>
 
-  <div class="hero">
-    <h1 class="title">IGNIS
-  <span class="flames">
-    <span class="flame"></span>
-    <span class="flame"></span>
-    <span class="flame"></span>
-    <span class="flame"></span>
-    <span class="flame"></span>
-    <span class="flame"></span>
-    <span class="flame"></span>
-    <span class="flame"></span>
-  </span>
-    </h1>
-
-    <p class="subtitle">LEARNING</p>
-    <a href="menu.html" class="fire-button" id="fireBtn">LET'S GO!</a>
-<div class="bubbles-container">
-  <span class="bubble"></span>
-  <span class="bubble"></span>
-  <span class="bubble"></span>
-  <span class="bubble"></span>
-  <span class="bubble"></span>
-  <span class="bubble"></span>
-  <span class="bubble"></span>
-  <span class="bubble"></span>
-  <span class="bubble"></span>
-  <span class="bubble"></span>
+    <p>
+      Para jugar IGNIS mejor,
+      usa tu teléfono en posición horizontal.
+    </p>
+  </div>
 </div>
 
-    <a href="http://www.utaltamira.edu.mx/" target="_blank">
-     <img src="img/logo_ut.png" alt="Logo UT" class="ut-logo">
-    </a>
-    <img src="img/dragon.png" alt="Dragón flotante" class="floating-dragon">
+<!-- CONTENIDO -->
+<div class="hero">
+
+  <!-- BOTON ACCESIBILIDAD -->
+  <button
+    id="voiceMode"
+    class="voice-btn"
+  >
+    🔊 Accesibilidad
+  </button>
+
+  <!-- TITULO -->
+  <h1
+    class="title"
+    id="titleVoice"
+  >
+    IGNIS
+
+    <span class="flames">
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+    </span>
+  </h1>
+
+  <!-- SUB -->
+  <p
+    class="subtitle"
+    id="subtitleVoice"
+  >
+    LEARNING
+  </p>
+
+  <!-- BOTON -->
+  <a
+    href="menu.html"
+    class="fire-button"
+    id="fireBtn"
+  >
+    LET'S GO!
+  </a>
+
+  <!-- BURBUJAS -->
+  <div class="bubbles-container">
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
   </div>
-  <script src="btn.js"></script>
+
+  <!-- LOGO -->
+  <a
+    href="http://www.utaltamira.edu.mx/"
+    target="_blank"
+  >
+    <img
+      src="img/logo_ut.png"
+      alt="Logo Universidad Tecnológica de Altamira"
+      class="ut-logo"
+    >
+  </a>
+
+  <!-- DRAGON -->
+  <img
+    src="img/dragon.png"
+    alt="Dragón flotante"
+    class="floating-dragon"
+  >
+
+</div>
+
+<script>
+
+/* ======================
+   ELEMENTOS
+====================== */
+
+const voiceBtn =
+document.getElementById("voiceMode");
+
+const fireBtn =
+document.getElementById("fireBtn");
+
+const title =
+document.getElementById("titleVoice");
+
+const subtitle =
+document.getElementById("subtitleVoice");
+
+const audio =
+document.getElementById("introSound");
+
+let accessibilityOn = false;
+
+/* ======================
+   FUNCION HABLAR
+====================== */
+
+function speak(text){
+
+  speechSynthesis.cancel();
+
+  const speech =
+  new SpeechSynthesisUtterance(text);
+
+  speech.lang = "es-MX";
+  speech.rate = 1;
+  speech.pitch = 1;
+
+  speechSynthesis.speak(speech);
+}
+
+/* ======================
+   AUDIO MOVIL
+====================== */
+
+document.body.addEventListener(
+"click",
+()=>{
+  audio.play().catch(()=>{});
+},
+{once:true}
+);
+
+/* ======================
+   PRESENTACION AUTOMATICA
+====================== */
+
+window.addEventListener(
+"load",
+()=>{
+
+  setTimeout(()=>{
+
+    speak(
+      "Bienvenido a Ignis Learning. " +
+      "Si necesitas asistencia por voz, " +
+      "toca el botón de accesibilidad " +
+      "en la esquina inferior derecha."
+    );
+
+  },1800);
+
+}
+);
+
+/* ======================
+   BOTON ACCESIBILIDAD
+====================== */
+
+function announceButton(){
+
+  speak(
+    accessibilityOn
+    ? "Desactivar voz"
+    : "Activar voz"
+  );
+
+}
+
+voiceBtn.addEventListener(
+"mouseenter",
+announceButton
+);
+
+voiceBtn.addEventListener(
+"touchstart",
+announceButton
+);
+
+voiceBtn.addEventListener(
+"click",
+()=>{
+
+  accessibilityOn =
+  !accessibilityOn;
+
+  if(accessibilityOn){
+
+    speak(
+      "Modo accesible activado. " +
+      "Toca Ignis, Learning o Lets Go."
+    );
+
+    voiceBtn.innerHTML =
+    "🔇 Desactivar Voz";
+
+  }else{
+
+    speechSynthesis.cancel();
+
+    voiceBtn.innerHTML =
+    "🔊 Accesibilidad";
+  }
+
+}
+);
+
+/* ======================
+   LECTURA ELEMENTOS
+====================== */
+
+function voiceInteraction(
+element,
+text
+){
+
+  element.addEventListener(
+  "mouseenter",
+  ()=>{
+    if(accessibilityOn)
+    speak(text);
+  });
+
+  element.addEventListener(
+  "touchstart",
+  ()=>{
+    if(accessibilityOn)
+    speak(text);
+  });
+
+}
+
+voiceInteraction(
+title,
+"Ignis"
+);
+
+voiceInteraction(
+subtitle,
+"Learning"
+);
+
+voiceInteraction(
+fireBtn,
+"Lets Go. Presiona para comenzar."
+);
+
+</script>
+
 </body>
 </html>
