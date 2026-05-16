@@ -2,19 +2,52 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
 >
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#000000">
+
 <title>IGNIS</title>
 
-<link rel="stylesheet" href="btn.css">
+<link rel="stylesheet" href="btn.css?v=5">
 
 <style>
 
-/* ======================
-   PANTALLA GIRAR CELU
-====================== */
+/* =========================
+   RESET
+========================= */
+
+html,
+body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* =========================
+   ROTATE SCREEN
+========================= */
 
 #rotateMessage{
   position:fixed;
@@ -35,21 +68,17 @@
 
 .rotate-box h2{
   font-size:2rem;
-  margin-bottom:15px;
+  margin-bottom:10px;
 }
 
-.rotate-box p{
-  font-size:1.1rem;
-}
-
-/* ======================
-   BOTON ACCESIBILIDAD
-====================== */
+/* =========================
+   ACCESSIBILITY BUTTON
+========================= */
 
 .voice-btn{
   position:fixed;
-  bottom:20px;
-  right:20px;
+  bottom:15px;
+  right:15px;
   z-index:9999;
 
   border:none;
@@ -59,9 +88,12 @@
   background:rgba(255,102,0,.95);
   color:white;
   font-size:14px;
+
   cursor:pointer;
 
-  box-shadow:0 4px 15px rgba(255,100,0,.35);
+  box-shadow:
+  0 4px 15px rgba(255,100,0,.35);
+
   transition:.3s;
 }
 
@@ -69,13 +101,13 @@
   transform:scale(1.05);
 }
 
-/* ======================
+/* =========================
    CELULAR
-====================== */
+========================= */
 
-@media screen and (max-width:900px){
+@media screen and (max-width:950px){
 
-  /* Vertical */
+  /* VERTICAL */
   @media (orientation:portrait){
 
     #rotateMessage{
@@ -87,55 +119,83 @@
     }
   }
 
-  /* Horizontal */
+  /* HORIZONTAL */
   @media (orientation:landscape){
 
     html,
     body{
+      height:100dvh;
       overflow:hidden;
-      height:100%;
     }
 
     .hero{
-      display:flex !important;
+      min-height:100dvh;
       justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      min-height:100vh;
-      padding:15px;
+      padding:12px;
+      text-align:center;
     }
 
-    /* IMPORTANTE:
-       QUITE EL SCALE
-       QUE HACIA TODO CHIQUITO 😭
-    */
-
+    /* TITULO */
     .title{
       font-size:4rem !important;
+      margin:0 !important;
+      position:relative;
+      z-index:5;
     }
 
     .subtitle{
-      font-size:1.4rem !important;
+      font-size:1.2rem !important;
+      margin-top:-5px;
+      z-index:5;
     }
 
+    /* LLAMAS */
+    .flames{
+      position:absolute !important;
+      top:-30px !important;
+      left:50% !important;
+      transform:
+      translateX(-50%)
+      scale(.9) !important;
+    }
+
+    /* BOTON */
     .fire-button{
-      transform:scale(1.1);
+      margin-top:18px !important;
+      z-index:5;
     }
 
-    .ut-logo{
-      width:80px !important;
-    }
-
+    /* DRAGON */
     .floating-dragon{
-      width:150px !important;
+      width:160px !important;
+      position:absolute !important;
+      bottom:20px !important;
+      right:20px !important;
+    }
+
+    /* LOGO */
+    .ut-logo{
+      width:70px !important;
+      position:absolute;
+      top:10px;
+      left:10px;
+    }
+
+    /* BURBUJAS */
+    .bubbles-container{
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
     }
 
     .voice-btn{
       bottom:12px;
       right:12px;
       font-size:13px;
-      padding:10px 15px;
+      padding:10px 14px;
     }
+
   }
 }
 
@@ -145,26 +205,24 @@
 <body>
 
 <!-- AUDIO -->
-<audio id="introSound" autoplay loop>
+<audio id="introSound" loop>
   <source src="cutt.mp3" type="audio/mpeg">
 </audio>
 
-<!-- MENSAJE GIRAR -->
+<!-- GIRAR CELU -->
 <div id="rotateMessage">
   <div class="rotate-box">
-    <h2>📱 Gira tu dispositivo</h2>
-
+    <h2>Gira tu dispositivo</h2>
     <p>
-      Para jugar IGNIS mejor,
-      usa tu teléfono en posición horizontal.
+      Usa IGNIS en horizontal
+      para una mejor experiencia.
     </p>
   </div>
 </div>
 
-<!-- CONTENIDO -->
 <div class="hero">
 
-  <!-- BOTON ACCESIBILIDAD -->
+  <!-- ACCESIBILIDAD -->
   <button
     id="voiceMode"
     class="voice-btn"
@@ -191,7 +249,7 @@
     </span>
   </h1>
 
-  <!-- SUB -->
+  <!-- SUBTITLE -->
   <p
     class="subtitle"
     id="subtitleVoice"
@@ -229,7 +287,7 @@
   >
     <img
       src="img/logo_ut.png"
-      alt="Logo Universidad Tecnológica de Altamira"
+      alt="Logo UT"
       class="ut-logo"
     >
   </a>
@@ -237,7 +295,7 @@
   <!-- DRAGON -->
   <img
     src="img/dragon.png"
-    alt="Dragón flotante"
+    alt="Dragón"
     class="floating-dragon"
   >
 
@@ -245,60 +303,107 @@
 
 <script>
 
-/* ======================
-   ELEMENTOS
-====================== */
+const audio =
+document.getElementById(
+"introSound"
+);
 
 const voiceBtn =
-document.getElementById("voiceMode");
+document.getElementById(
+"voiceMode"
+);
 
 const fireBtn =
-document.getElementById("fireBtn");
+document.getElementById(
+"fireBtn"
+);
 
 const title =
-document.getElementById("titleVoice");
+document.getElementById(
+"titleVoice"
+);
 
 const subtitle =
-document.getElementById("subtitleVoice");
+document.getElementById(
+"subtitleVoice"
+);
 
-const audio =
-document.getElementById("introSound");
+let accessibilityOn =
+false;
 
-let accessibilityOn = false;
-
-/* ======================
-   FUNCION HABLAR
-====================== */
+/* ===================
+   HABLAR
+=================== */
 
 function speak(text){
 
   speechSynthesis.cancel();
 
   const speech =
-  new SpeechSynthesisUtterance(text);
+  new SpeechSynthesisUtterance(
+  text
+  );
 
-  speech.lang = "es-MX";
-  speech.rate = 1;
-  speech.pitch = 1;
+  speech.lang="es-MX";
+  speech.rate=1;
+  speech.pitch=1;
 
-  speechSynthesis.speak(speech);
+  speechSynthesis.speak(
+  speech
+  );
 }
 
-/* ======================
-   AUDIO MOVIL
-====================== */
+/* ===================
+   ESCONDER BARRA
+=================== */
 
-document.body.addEventListener(
-"click",
+window.addEventListener(
+"load",
 ()=>{
+
+  setTimeout(()=>{
+
+    window.scrollTo(
+    0,
+    1
+    );
+
+  },100);
+
+});
+
+/* ===================
+   AUDIO MOVIL
+=================== */
+
+function startAudio(){
+
   audio.play().catch(()=>{});
-},
-{once:true}
+
+  document.removeEventListener(
+  "touchstart",
+  startAudio
+  );
+
+  document.removeEventListener(
+  "click",
+  startAudio
+  );
+}
+
+document.addEventListener(
+"touchstart",
+startAudio
 );
 
-/* ======================
-   PRESENTACION AUTOMATICA
-====================== */
+document.addEventListener(
+"click",
+startAudio
+);
+
+/* ===================
+   MENSAJE AUTOMATICO
+=================== */
 
 window.addEventListener(
 "load",
@@ -307,29 +412,27 @@ window.addEventListener(
   setTimeout(()=>{
 
     speak(
-      "Bienvenido a Ignis Learning. " +
-      "Si necesitas asistencia por voz, " +
-      "toca el botón de accesibilidad " +
-      "en la esquina inferior derecha."
+    "Bienvenido a Ignis Learning. " +
+    "Para activar asistencia por voz, " +
+    "presiona el botón de accesibilidad " +
+    "abajo a la derecha."
     );
 
   },1800);
 
-}
-);
+});
 
-/* ======================
-   BOTON ACCESIBILIDAD
-====================== */
+/* ===================
+   BOTON VOZ
+=================== */
 
 function announceButton(){
 
   speak(
-    accessibilityOn
-    ? "Desactivar voz"
-    : "Activar voz"
+  accessibilityOn
+  ? "Desactivar voz"
+  : "Activar voz"
   );
-
 }
 
 voiceBtn.addEventListener(
@@ -352,27 +455,25 @@ voiceBtn.addEventListener(
   if(accessibilityOn){
 
     speak(
-      "Modo accesible activado. " +
-      "Toca Ignis, Learning o Lets Go."
+    "Modo accesible activado."
     );
 
-    voiceBtn.innerHTML =
+    voiceBtn.innerHTML=
     "🔇 Desactivar Voz";
 
   }else{
 
     speechSynthesis.cancel();
 
-    voiceBtn.innerHTML =
+    voiceBtn.innerHTML=
     "🔊 Accesibilidad";
   }
 
-}
-);
+});
 
-/* ======================
-   LECTURA ELEMENTOS
-====================== */
+/* ===================
+   LECTURA
+=================== */
 
 function voiceInteraction(
 element,
