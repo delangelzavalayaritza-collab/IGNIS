@@ -2,52 +2,19 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#000000">
-
 <title>IGNIS</title>
 
-<link rel="stylesheet" href="btn.css?v=5">
+<link rel="stylesheet" href="btn.css?v=2">
 
 <style>
 
-/* =========================
-   RESET
-========================= */
-
-html,
-body{
-  margin:0;
-  padding:0;
-  width:100%;
-  min-height:100%;
-  overflow-x:hidden;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-  position:relative;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-}
-
-/* =========================
-   ROTATE SCREEN
-========================= */
+/* ======================
+   PANTALLA GIRAR CELU
+====================== */
 
 #rotateMessage{
   position:fixed;
@@ -68,17 +35,21 @@ body{
 
 .rotate-box h2{
   font-size:2rem;
-  margin-bottom:10px;
+  margin-bottom:15px;
 }
 
-/* =========================
-   ACCESSIBILITY BUTTON
-========================= */
+.rotate-box p{
+  font-size:1.1rem;
+}
+
+/* ======================
+   BOTON ACCESIBILIDAD
+====================== */
 
 .voice-btn{
   position:fixed;
-  bottom:15px;
-  right:15px;
+  bottom:20px;
+  right:20px;
   z-index:9999;
 
   border:none;
@@ -88,12 +59,9 @@ body{
   background:rgba(255,102,0,.95);
   color:white;
   font-size:14px;
-
   cursor:pointer;
 
-  box-shadow:
-  0 4px 15px rgba(255,100,0,.35);
-
+  box-shadow:0 4px 15px rgba(255,100,0,.35);
   transition:.3s;
 }
 
@@ -101,13 +69,13 @@ body{
   transform:scale(1.05);
 }
 
-/* =========================
+/* ======================
    CELULAR
-========================= */
+====================== */
 
-@media screen and (max-width:950px){
+@media screen and (max-width:900px){
 
-  /* VERTICAL */
+  /* Vertical */
   @media (orientation:portrait){
 
     #rotateMessage{
@@ -119,83 +87,83 @@ body{
     }
   }
 
-  /* HORIZONTAL */
+  /* Horizontal */
   @media (orientation:landscape){
 
     html,
     body{
-      height:100dvh;
       overflow:hidden;
+      height:100dvh;
+      width:100%;
+      margin:0;
+      padding:0;
     }
 
+    /* NO CENTRAR TODO */
     .hero{
       min-height:100dvh;
-      justify-content:center;
-      padding:12px;
-      text-align:center;
-    }
-
-    /* TITULO */
-    .title{
-      font-size:4rem !important;
-      margin:0 !important;
       position:relative;
-      z-index:5;
+      overflow:hidden;
+      padding:10px;
     }
 
+    /* IGNIS */
+    .title{
+      font-size:3.2rem !important;
+      margin-top:10px !important;
+    }
+
+    /* LEARNING */
     .subtitle{
-      font-size:1.2rem !important;
-      margin-top:-5px;
-      z-index:5;
+      font-size:1.1rem !important;
+      margin-top:-10px !important;
     }
 
-    /* LLAMAS */
-    .flames{
-      position:absolute !important;
-      top:-30px !important;
-      left:50% !important;
-      transform:
-      translateX(-50%)
-      scale(.9) !important;
-    }
-
-    /* BOTON */
+    /* LETS GO */
     .fire-button{
-      margin-top:18px !important;
-      z-index:5;
+      position:relative;
+      z-index:20;
+      margin-top:10px !important;
+      transform:scale(.95);
+    }
+
+    /* UT ARRIBA */
+    .ut-logo{
+      width:70px !important;
+      position:absolute !important;
+      top:15px !important;
+      left:15px !important;
+      z-index:10;
     }
 
     /* DRAGON */
     .floating-dragon{
       width:160px !important;
       position:absolute !important;
-      bottom:20px !important;
-      right:20px !important;
+      right:10px !important;
+      bottom:10px !important;
+      z-index:4;
     }
 
-    /* LOGO */
-    .ut-logo{
-      width:70px !important;
-      position:absolute;
-      top:10px;
-      left:10px;
+    /* LLAMITAS */
+    .flames{
+      transform:
+      translateX(-50%)
+      scale(.85) !important;
     }
 
     /* BURBUJAS */
     .bubbles-container{
-      position:absolute;
-      inset:0;
       overflow:hidden;
-      pointer-events:none;
     }
 
+    /* BOTON ACCESIBILIDAD */
     .voice-btn{
       bottom:12px;
       right:12px;
       font-size:13px;
-      padding:10px 14px;
+      padding:10px 15px;
     }
-
   }
 }
 
@@ -205,24 +173,26 @@ body{
 <body>
 
 <!-- AUDIO -->
-<audio id="introSound" loop>
+<audio id="introSound" autoplay loop>
   <source src="cutt.mp3" type="audio/mpeg">
 </audio>
 
-<!-- GIRAR CELU -->
+<!-- MENSAJE GIRAR -->
 <div id="rotateMessage">
   <div class="rotate-box">
-    <h2>Gira tu dispositivo</h2>
+    <h2>📱 Gira tu dispositivo</h2>
+
     <p>
-      Usa IGNIS en horizontal
-      para una mejor experiencia.
+      Para jugar IGNIS mejor,
+      usa tu teléfono en posición horizontal.
     </p>
   </div>
 </div>
 
+<!-- CONTENIDO -->
 <div class="hero">
 
-  <!-- ACCESIBILIDAD -->
+  <!-- BOTON ACCESIBILIDAD -->
   <button
     id="voiceMode"
     class="voice-btn"
@@ -249,7 +219,7 @@ body{
     </span>
   </h1>
 
-  <!-- SUBTITLE -->
+  <!-- SUB -->
   <p
     class="subtitle"
     id="subtitleVoice"
@@ -281,13 +251,10 @@ body{
   </div>
 
   <!-- LOGO -->
-  <a
-    href="http://www.utaltamira.edu.mx/"
-    target="_blank"
-  >
+  <a href="http://www.utaltamira.edu.mx/" target="_blank">
     <img
       src="img/logo_ut.png"
-      alt="Logo UT"
+      alt="Logo Universidad Tecnológica de Altamira"
       class="ut-logo"
     >
   </a>
@@ -295,7 +262,7 @@ body{
   <!-- DRAGON -->
   <img
     src="img/dragon.png"
-    alt="Dragón"
+    alt="Dragón flotante"
     class="floating-dragon"
   >
 
@@ -303,108 +270,62 @@ body{
 
 <script>
 
-const audio =
-document.getElementById(
-"introSound"
-);
+/* ESCONDER BARRA NAVEGADOR */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    window.scrollTo(0,1);
+  },100);
+});
+
+/* ======================
+   ELEMENTOS
+====================== */
 
 const voiceBtn =
-document.getElementById(
-"voiceMode"
-);
+document.getElementById("voiceMode");
 
 const fireBtn =
-document.getElementById(
-"fireBtn"
-);
+document.getElementById("fireBtn");
 
 const title =
-document.getElementById(
-"titleVoice"
-);
+document.getElementById("titleVoice");
 
 const subtitle =
-document.getElementById(
-"subtitleVoice"
-);
+document.getElementById("subtitleVoice");
 
-let accessibilityOn =
-false;
+const audio =
+document.getElementById("introSound");
 
-/* ===================
-   HABLAR
-=================== */
+let accessibilityOn = false;
+
+/* ======================
+   FUNCION HABLAR
+====================== */
 
 function speak(text){
 
   speechSynthesis.cancel();
 
   const speech =
-  new SpeechSynthesisUtterance(
-  text
-  );
+  new SpeechSynthesisUtterance(text);
 
-  speech.lang="es-MX";
-  speech.rate=1;
-  speech.pitch=1;
+  speech.lang = "es-MX";
+  speech.rate = 1;
+  speech.pitch = 1;
 
-  speechSynthesis.speak(
-  speech
-  );
+  speechSynthesis.speak(speech);
 }
 
-/* ===================
-   ESCONDER BARRA
-=================== */
-
-window.addEventListener(
-"load",
-()=>{
-
-  setTimeout(()=>{
-
-    window.scrollTo(
-    0,
-    1
-    );
-
-  },100);
-
-});
-
-/* ===================
-   AUDIO MOVIL
-=================== */
-
-function startAudio(){
-
-  audio.play().catch(()=>{});
-
-  document.removeEventListener(
-  "touchstart",
-  startAudio
-  );
-
-  document.removeEventListener(
-  "click",
-  startAudio
-  );
-}
-
-document.addEventListener(
-"touchstart",
-startAudio
-);
-
-document.addEventListener(
+/* AUDIO CELULAR */
+document.body.addEventListener(
 "click",
-startAudio
+()=>{
+  audio.play().catch(()=>{});
+},
+{once:true}
 );
 
-/* ===================
-   MENSAJE AUTOMATICO
-=================== */
-
+/* PRESENTACION */
 window.addEventListener(
 "load",
 ()=>{
@@ -412,27 +333,26 @@ window.addEventListener(
   setTimeout(()=>{
 
     speak(
-    "Bienvenido a Ignis Learning. " +
-    "Para activar asistencia por voz, " +
-    "presiona el botón de accesibilidad " +
-    "abajo a la derecha."
+      "Bienvenido a Ignis Learning. " +
+      "Si necesitas asistencia por voz, " +
+      "toca el botón de accesibilidad."
     );
 
   },1800);
 
-});
+}
+);
 
-/* ===================
-   BOTON VOZ
-=================== */
+/* BOTON ACCESIBILIDAD */
 
 function announceButton(){
 
   speak(
-  accessibilityOn
-  ? "Desactivar voz"
-  : "Activar voz"
+    accessibilityOn
+    ? "Desactivar voz"
+    : "Activar voz"
   );
+
 }
 
 voiceBtn.addEventListener(
@@ -455,25 +375,24 @@ voiceBtn.addEventListener(
   if(accessibilityOn){
 
     speak(
-    "Modo accesible activado."
+      "Modo accesible activado."
     );
 
-    voiceBtn.innerHTML=
+    voiceBtn.innerHTML =
     "🔇 Desactivar Voz";
 
   }else{
 
     speechSynthesis.cancel();
 
-    voiceBtn.innerHTML=
+    voiceBtn.innerHTML =
     "🔊 Accesibilidad";
   }
 
-});
+}
+);
 
-/* ===================
-   LECTURA
-=================== */
+/* LECTURA */
 
 function voiceInteraction(
 element,
