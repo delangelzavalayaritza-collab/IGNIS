@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn Math with the Dragon!</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #ffcc00;
+    --accent: #00bcd4;
+    --bg-glass: rgba(255, 255, 255, 0.1);
+    --text-light: #fffaf0;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at top, #1a0033, #000010 70%);
+    color: var(--text-light);
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  #bgVideo {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -3;
+    opacity: 0.35;
+  }
+
+  header {
+    margin-top: 1rem;
+    text-shadow: 3px 3px 10px #000;
+  }
+
+  h1 {
+    font-family: 'Bangers', cursive;
+    color: var(--gold);
+    font-size: 3.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.3rem;
+  }
+
+  .lead {
+    font-size: 1.3rem;
+    color: #aee8ff;
+    text-shadow: 1px 1px 5px #000;
+  }
+
+  section {
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    margin: 2rem auto;
+    width: 85%;
+    max-width: 950px;
+    padding: 2rem;
+  }
+
+  h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 2.3rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .tip {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    margin: 1rem auto;
+    padding: 1.3rem;
+    text-align: left;
+    font-size: 1.2rem;
+    color: #e5faff;
+    transition: all 0.3s;
+    position: relative;
+    max-width: 700px;
+  }
+
+  .tip:hover {
+    transform: scale(1.02);
+    background: rgba(0,255,255,0.1);
+    box-shadow: 0 0 20px rgba(0,255,255,0.3);
+  }
+
+  .emoji {
+    font-size: 2rem;
+    margin-right: 10px;
+  }
+
+  .dragon-img {
+    position: fixed;
+    left: -110px;
+    bottom: 15%;
+    width: 1000px;
+    animation: float 3s ease-in-out infinite;
+    z-index: 10;
+    filter: drop-shadow(0 0 25px rgba(255,200,0,0.5));
+    transition: transform 0.3s ease;
+  }
+
+  .dragon-img:hover {
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .button {
+    background: linear-gradient(90deg, var(--gold), #ff8800);
+    color: #000;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 40px;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    margin: 1.5rem;
+    font-family: 'Bangers', cursive;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px #ffb347;
+  }
+
+  .button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(90deg, #ffee00, #ff5500);
+  }
+
+  footer {
+    background: rgba(255,255,255,0.05);
+    color: var(--gold);
+    padding: 1rem;
+    margin-top: 2rem;
+    text-shadow: 1px 1px 5px #000;
+    font-family: 'Bangers', cursive;
+  }
+
+  @media (max-width: 800px) {
+    .dragon-img {
+      position: static;
+      display: block;
+      margin: 1.5rem auto;
+      width: 160px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<video autoplay muted loop id="bgVideo">
+  <source src="video/magic-lab.mp4" type="video/mp4">
+</video>
+
+<header>
+  <h1>Learn Math with the Dragon!</h1>
+  <p class="lead">Turn numbers into magic and fun!</p>
+</header>
+
+<section>
+  <h2>Math Magic Tips</h2>
+
+  <div class="tip"><span class="emoji">🧮</span> <strong>Practice a little every day</strong> — even five minutes keeps your math magic strong!</div>
+  <div class="tip"><span class="emoji">🎯</span> <strong>Learn with games</strong> — solving puzzles and challenges makes numbers exciting!</div>
+  <div class="tip"><span class="emoji">🔢</span> <strong>Use colors for numbers</strong> — it helps your brain remember math spells better!</div>
+  <div class="tip"><span class="emoji">💡</span> <strong>Find patterns</strong> — math is full of secret codes waiting to be discovered!</div>
+  <div class="tip"><span class="emoji">📐</span> <strong>Draw your problems</strong> — shapes, lines, and diagrams make everything clearer!</div>
+  <div class="tip"><span class="emoji">🧙‍♂️</span> <strong>Teach others</strong> — every time you explain, your math power grows!</div>
+
+  <button class="button" id="confettiBtn">Dragon Power!</button><br>
+  <a href="menu.html" button class="button">Back</a>
+</section>
+
+<!-- 🐉 Dragón fuera del panel -->
+<img src="img/dragon.png" class="dragon-img" alt="Magic Dragon">
+
+<footer>
+  © 2025 IGNIS | Learn, Play & Shine!
+</footer>
+
+<!-- 🎉 Confeti + rugido -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<audio id="roar" src="ef/roar.mp3" preload="auto"></audio>
+
+<script>
+  const btn = document.getElementById('confettiBtn');
+  const roar = document.getElementById('roar');
+
+  btn.addEventListener('click', () => {
+    try {
+      roar.currentTime = 0;
+      roar.play();
+    } catch(e) {}
+
+    const duration = 1200;
+    const end = Date.now() + duration;
+
+    (function frame() {
+      confetti({
+        particleCount: 8,
+        startVelocity: 25,
+        spread: 140,
+        origin: { y: 0.8 },
+        colors: ['#ffcc00','#ff8800','#00ffff']
+      });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+  });
+</script>
+
+</body>
+</html>

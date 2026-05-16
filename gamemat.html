@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Math</title>
+
+<!-- Fuente divertida -->
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Bangers', cursive;
+    color: #ffe8e8;
+    text-align: center;
+    padding: 1rem;
+    overflow: hidden;
+  }
+
+  /* 🎥 VIDEO DE FONDO */
+  #bgVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.6);
+  }
+
+  h1 {
+    font-size: 4rem;
+    color: #ffcc00;
+    text-shadow: 3px 3px 0 #ff4500, 6px 6px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  .game-container {
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    display: inline-block;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  }
+
+  .fraction-btn {
+    display: inline-block;
+    margin: 1rem;
+    background: #ff9933;
+    color: #000;
+    font-size: 2rem;
+    border: none;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .fraction-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ffcc00;
+  }
+
+  .scoreboard {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: #fff;
+    text-shadow: 2px 2px 5px #000;
+  }
+
+  .message {
+    font-size: 2rem;
+    margin-top: 1rem;
+    text-shadow: 2px 2px 5px #000;
+  }
+
+  button#next {
+    background: #009688;
+    color: #000;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    display: none;
+  }
+
+  button#next:hover {
+    background: #00796b;
+    color: #fff;
+  }
+
+  .mascota {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 180px;
+    opacity: 0.95;
+  }
+</style>
+</head>
+<body>
+
+<!-- 🎥 Video de fondo -->
+<video autoplay muted loop id="bgVideo">
+  <source src="ef/lol.mp4" type="video/mp4">
+  Tu navegador no soporta video de fondo.
+</video>
+
+<h1>Fraction Battle </h1>
+<p>Choose the larger fraction!</p>
+
+<div class="game-container">
+  <div id="fractions"></div>
+  <div class="message" id="message"></div>
+  <button id="next">Next Round ➡️</button>
+  <div class="scoreboard">
+    <p>Round: <span id="round">1</span> / 10</p>
+    <p>Score: <span id="score">0</span></p>
+  </div>
+</div>
+
+<!-- 🐉 Mascota opcional -->
+<!-- <img src="img/dragon.png" class="mascota" alt="Mascota"> -->
+
+<!-- Sonidos -->
+<audio id="correctSound" src="ef/yupi.m4a"></audio>
+<audio id="wrongSound" src="ef/wrong.m4a"></audio>
+
+<!-- Librería de confeti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script>
+  const fractionsDiv = document.getElementById('fractions');
+  const message = document.getElementById('message');
+  const nextBtn = document.getElementById('next');
+  const scoreEl = document.getElementById('score');
+  const roundEl = document.getElementById('round');
+  const correctSound = document.getElementById('correctSound');
+  const wrongSound = document.getElementById('wrongSound');
+
+  let score = 0;
+  let round = 1;
+  const totalRounds = 10;
+
+  function randomFraction() {
+    const numerator = Math.floor(Math.random() * 9) + 1;
+    const denominator = Math.floor(Math.random() * 9) + 1;
+    return { num: numerator, den: denominator, value: numerator / denominator };
+  }
+
+  function newRound() {
+    message.textContent = '';
+    nextBtn.style.display = 'none';
+    fractionsDiv.innerHTML = '';
+
+    const f1 = randomFraction();
+    const f2 = randomFraction();
+
+    const btn1 = document.createElement('button');
+    const btn2 = document.createElement('button');
+    btn1.className = btn2.className = 'fraction-btn';
+    btn1.textContent = `${f1.num}/${f1.den}`;
+    btn2.textContent = `${f2.num}/${f2.den}`;
+
+    btn1.onclick = () => checkAnswer(f1.value >= f2.value);
+    btn2.onclick = () => checkAnswer(f2.value >= f1.value);
+
+    fractionsDiv.appendChild(btn1);
+    fractionsDiv.appendChild(btn2);
+  }
+
+  function checkAnswer(correct) {
+    if (message.textContent) return; 
+    if (correct) {
+      score++;
+      correctSound.play();
+      message.style.color = '#00ff00';
+      message.textContent = '✅ ¡Correct!';
+      scoreEl.textContent = score;
+      fiestaConfeti();
+    } else {
+      wrongSound.play();
+      message.style.color = '#ff0000';
+      message.textContent = '❌Wrong';
+    }
+    nextBtn.style.display = 'inline-block';
+  }
+
+  function fiestaConfeti() {
+    const duration = 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+      confetti({
+        particleCount: 7,
+        angle: 60,
+        spread: 100,
+        origin: { x: 0 },
+        colors: ['#ff0', '#ff4500', '#00ffea', '#ff00ff']
+      });
+      confetti({
+        particleCount: 7,
+        angle: 120,
+        spread: 100,
+        origin: { x: 1 },
+        colors: ['#ff0', '#ff4500', '#00ffea', '#ff00ff']
+      });
+      if (Date.now() < end) requestAnimationFrame(frame);
+    })();
+  }
+
+  nextBtn.onclick = () => {
+    round++;
+    if (round > totalRounds) {
+      endGame();
+    } else {
+      roundEl.textContent = round;
+      newRound();
+    }
+  };
+
+  function endGame() {
+    fractionsDiv.innerHTML = '';
+    message.style.color = '#ffcc00';
+    message.textContent = `🎉 ¡Terminaste! Tu puntaje final es ${score}/${totalRounds}`;
+    nextBtn.textContent = '🔁 Jugar otra vez';
+    nextBtn.style.display = 'inline-block';
+    nextBtn.onclick = () => location.reload();
+  }
+
+  newRound();
+</script>
+</body>
+</html>

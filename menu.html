@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu</title>
+  <link rel="stylesheet" href="menu.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <div class="container">
+    <nav class="menu">
+      <h1 class="logo">MENU</h1>
+      <ul>
+        <li><button class="menu-btn active" data-section="home">Home</button></li>
+        <li><button class="menu-btn" data-section="tips">Tips</button></li>
+        <li><button class="menu-btn" data-section="games">Games</button></li>
+        <li><button class="menu-btn" data-section="downloads">Downloads</button></li>
+        <li><button class="menu-btn" data-section="help">Help</button></li>
+      </ul>
+    </nav>
+
+    <!-- RIGHT PANEL -->
+    <section class="content" id="right-panel">
+  <div id="fire-transition"></div>
+  <div id="content-area">
+    <h2>Welcome!</h2>
+    <p>Press any button to start your adventure!</p>
+  </div>
+</section>
+
+
+  <!-- AUDIO ELEMENTS -->
+  <audio id="intro-audio" src=""></audio>
+  <audio id="tips-audio" src="ef/tips.mp3"></audio>
+  <audio id="games-audio" src="ef/game.mp3"></audio>
+  <audio id="downloads-audio" src="ef/down.m4a"></audio>
+  <audio id="help-audio" src="ef/despegue nave espacial.mp3"></audio>
+
+  <script src="menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador de PDFs</title>
+  <style>
+    /* ====== FUENTES Y ESTILO GENERAL ====== */
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Bangers', cursive;
+      font-size: 1.4rem;
+      background: url('img/down.jpeg') center/cover no-repeat fixed;
+      color: #fff8e7;
+      text-align: center;
+      padding: 2rem 1rem;
+      overflow-x: hidden;
+    }
+
+    /* ====== TITULO ====== */
+    h1 {
+      font-size: 4rem;
+      color: #ffcc00;
+      text-shadow: 3px 3px 0 #ff4500, 6px 6px 10px rgba(0, 0, 0, 0.6);
+      letter-spacing: 2px;
+      animation: glow 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 3px 3px 0 #ff4500, 0 0 10px #ff9900; }
+      to { text-shadow: 3px 3px 0 #ff4500, 0 0 25px #ffcc00; }
+    }
+
+    p {
+      font-size: 2rem;
+      color: #fff3b0;
+      text-shadow: 2px 2px 8px #ff0000;
+      margin-top: 10px;
+      animation: floatText 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatText {
+      from { transform: translateY(0); }
+      to { transform: translateY(-5px); }
+    }
+
+    /* ====== BUSCADOR ====== */
+    #searchBar {
+      width: 80%;
+      max-width: 400px;
+      padding: 12px 18px;
+      border-radius: 40px;
+      border: 2px solid #ffcc00;
+      outline: none;
+      font-size: 1.2rem;
+      color: #333;
+      background: #fff9d9;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+    }
+
+    #searchBar:focus {
+      box-shadow: 0 0 20px #ffcc00, 0 0 40px #ff6600;
+      transform: scale(1.05);
+    }
+
+    /* ====== LISTA ====== */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    li {
+      background: linear-gradient(135deg, #ff9a3c, #ffb347);
+      width: 90%;
+      max-width: 520px;
+      border-radius: 20px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    li:hover {
+      transform: scale(1.05) rotate(1deg);
+      box-shadow: 0 0 25px rgba(255, 204, 0, 0.8);
+    }
+
+    /* ====== BOTÓN DESCARGAR ====== */
+    a.descargar {
+      background: linear-gradient(45deg, #00ffcc, #009688);
+      color: #f1d6d6;
+      padding: 10px 18px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 0 10px rgba(0,255,200,0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    a.descargar:hover {
+      background: linear-gradient(45deg, #00e6b8, #00bfa5);
+      box-shadow: 0 0 25px rgba(0,255,255,0.8);
+      transform: scale(1.1);
+    }
+
+    a.descargar::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.4);
+      transform: skewX(-25deg);
+      transition: 0.5s;
+    }
+
+    a.descargar:hover::before {
+      left: 125%;
+    }
+
+    /* ====== MASCOTA ====== */
+    .mascota {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      width: 180px;
+      z-index: 1;
+      animation: bounce 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to { transform: translateY(-15px); }
+    }
+
+    /* ====== RESPONSIVO ====== */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1.5rem;
+      }
+      li {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+      a.descargar {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+    <audio autoplay loop>
+  <source src="ef/wait.mp3" type="audio/mp3">
+</audio>
+
+
+  <h1>Download</h1>
+  <p>Search the document</p>
+
+  <input type="text" id="searchBar" placeholder="Buscar archivo..." />
+
+  <ul id="fileList"></ul>
+
+  <!-- 🐉 Aquí pones tu imagen del dragón o personaje -->
+  <!-- <img src="mi-dragon.png" alt="Mascota" class="mascota"> -->
+
+  <script>
+    const archivos = [
+      { nombre: "Match the animals and its name", archivo: "pdf/match.pdf" },
+      { nombre: "Arrange the words", archivo: "pdf/arrange.pdf" },
+      { nombre: "Reading Practice", archivo: "pdf/reading.pdf" },
+      { nombre: "There is / There are", archivo: "pdf/there.jpg" },
+      { nombre: "Sentences", archivo: "pdf/sentence.webp" },
+    ];
+
+    const lista = document.getElementById("fileList");
+    const buscador = document.getElementById("searchBar");
+
+    function mostrarArchivos(filtro = "") {
+      lista.innerHTML = "";
+      const resultados = archivos.filter(a =>
+        a.nombre.toLowerCase().includes(filtro.toLowerCase())
+      );
+
+      if (resultados.length === 0) {
+        lista.innerHTML = "<li>⚠️ No se encontró ningún archivo 📁</li>";
+        return;
+      }
+
+      resultados.forEach(a => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <span>${a.nombre}</span>
+          <a href="${a.archivo}" download class="descargar">Descargar</a>
+        `;
+        lista.appendChild(li);
+      });
+    }
+
+    buscador.addEventListener("input", e => {
+      mostrarArchivos(e.target.value);
+    });
+
+    mostrarArchivos();
+  </script>
+
+</body>
+</html>

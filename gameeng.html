@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Learning Games</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="gameeng.css">
+</head>
+<body>
+
+  <header>
+    <h1>English Learning Games</h1>
+    <p>Choose your grade level and start playing!</p>
+  </header>
+
+  <div class="container">
+
+    <!-- === Botones de Grado === -->
+    <div class="grade-buttons">
+      <button class="primary-btn">Primary</button>
+      <button class="secondary-btn">Secondary</button>
+      <button class="high-btn">High School</button>
+    </div>
+
+    <!-- === Botones de Dificultad === -->
+    <div id="difficulty-select" class="difficulty-section">
+      <h2>Select Difficulty</h2>
+      <div class="difficulty-buttons">
+        <button>Easy</button>
+        <button>Medium</button>
+        <button>Hard</button>
+      </div>
+    </div>
+
+    <!-- === Lista de juegos (JS la llenará) === -->
+    <div class="games-list" id="gamesList">
+      <!-- Aquí JS inserta los juegos -->
+    </div>
+
+    <a href="index.html" class="back-btn">⬅ Back</a>
+  </div>
+
+  <script src="gameeng.js"></script>
+</body>
+</html>

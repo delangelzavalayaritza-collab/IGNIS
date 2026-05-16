@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mad Lab: Color Mixer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ui-bg: rgba(0,0,0,0.35);
+    --glass-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:'Bangers',cursive;
+    background:#080818;
+    color:#fff;
+    text-align:center;
+    overflow:hidden;
+    padding:1rem;
+  }
+
+  #bgVideo{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;filter:brightness(.55)}
+
+  h1{font-size:4rem;color:#ffcc00;text-shadow:3px 3px 0 #00bcd4,6px 6px 10px rgba(0,0,0,.6);margin:0.2rem}
+  p.lead{margin:0.4rem 0 1rem;font-size:2rem;text-shadow:1px 1px 4px #000}
+
+  .ui {
+    background: var(--ui-bg);
+    border-radius:18px;
+    display:inline-block;
+    padding:1.2rem;
+    box-shadow: var(--glass-shadow);
+    min-width:320px;
+  }
+
+  .lab {
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    align-items:flex-end;
+    padding:1rem 0;
+    flex-wrap:wrap;
+  }
+
+  .bottle {
+    width:140px;
+    cursor:pointer;
+    transform-origin:center bottom;
+    transition: transform .22s, box-shadow .22s;
+    position:relative;
+  }
+  .bottle:hover{transform:translateY(-6px) scale(1.02); box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  .bottle.locked{opacity:.5; cursor:default; transform:none}
+
+  .label{margin-top:8px;font-size:1rem;color:#fff;text-shadow:1px 1px 3px #000;}
+
+  .reaction {
+    position:absolute;
+    inset:0;
+    border-radius:16px;
+    pointer-events:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#000;
+    font-weight:bold;
+    opacity:0;
+    transition:opacity .35s, transform .35s;
+  }
+  .reaction.good{opacity:1; transform:scale(1.02)}
+  .reaction.bad{opacity:1; transform:scale(1.02)}
+
+  #status{font-size:1.2rem;margin-top:.6rem;text-shadow:1px 1px 3px #000}
+  #scoreboard{margin-top:.6rem;font-size:1rem}
+  #next{margin-top:1rem;background:#00bcd4;border:none;color:#000;padding:.6rem 1.2rem;border-radius:20px;cursor:pointer;display:none}
+  #next:hover{background:#0097a7;color:#fff}
+
+  .end{margin-top:1rem;font-size:1.2rem;color:#ffcc00;text-shadow:1px 1px 4px #000;}
+
+  @media (max-width:520px){
+    .bottle{width:110px}
+    h1{font-size:2.2rem}
+    .ui{padding:.8rem}
+  }
+</style>
+</head>
+<body>
+
+<video autoplay muted loop id="bgVideo">
+  <source src="ef/chemi.mp4" type="video/mp4">
+</video>
+<audio id="introSound" autoplay loop>
+  <source src="ef/bubb.wav" type="audio/mpeg">
+  </audio>
+
+<h1>Mad Lab: Color Mixer</h1>
+<p class="lead">Mix the right colors to create the target potion! (6 rounds)</p>
+
+<section class="ui">
+  <div id="roundLine">Round <strong id="round">1</strong> / <span id="total">6</span></div>
+
+  <div class="lab" id="labArea"></div>
+
+  <div id="status">Choose the two correct reagents</div>
+  <div id="scoreboard">Score: <strong id="score">0</strong></div>
+  <button id="next">Next Experiment ➡️</button>
+  <div id="end" class="end" style="display:none"></div>
+</section>
+
+<!-- sounds -->
+<audio id="sndSuccess" src="ef/yupi.m4a" preload="auto"></audio>
+<audio id="sndFail" src="ef/error.wav" preload="auto"></audio>
+
+<!-- confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+<script>
+/* ===== DATA ===== */
+const MIXES = [
+  { name:"Pink", result:"#FFC0CB", combo:["Red","White"] },
+  { name:"Purple", result:"#800080", combo:["Red","Blue"] },
+  { name:"Orange", result:"#FFA500", combo:["Red","Yellow"] },
+  { name:"Green", result:"#00FF00", combo:["Yellow","Blue"] },
+  { name:"Brown", result:"#8B4513", combo:["Red","Green"] },
+  { name:"Gray", result:"#808080", combo:["Black","White"] }
+];
+
+const BASE_COLORS = {
+  Red:"#ff4d4d",
+  Blue:"#4da6ff",
+  Yellow:"#ffff66",
+  Green:"#4dff4d",
+  White:"#ffffff",
+  Black:"#222222"
+};
+
+const totalRounds = MIXES.length;
+let round = 1;
+let score = 0;
+let chosen = [];
+let targetMix = null;
+
+const labArea = document.getElementById("labArea");
+const roundEl = document.getElementById("round");
+const totalEl = document.getElementById("total");
+const statusEl = document.getElementById("status");
+const scoreEl = document.getElementById("score");
+const nextBtn = document.getElementById("next");
+const endEl = document.getElementById("end");
+
+const sndSuccess = document.getElementById('sndSuccess');
+const sndFail = document.getElementById('sndFail');
+totalEl.textContent = totalRounds;
+
+/* ===== HELPERS ===== */
+function makeBottle(name,color){
+  const el=document.createElement("div");
+  el.className="bottle";
+  el.innerHTML=`
+    <svg viewBox="0 0 120 180" width="100%" height="100%">
+      <path d="M30 20 L90 20 L100 120 L70 160 L50 160 L20 120 Z"
+        fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+      <rect x="25" y="60" width="70" height="80" rx="10" fill="${color}"/>
+      <ellipse cx="45" cy="80" rx="6" ry="18" fill="rgba(255,255,255,0.18)"/>
+    </svg>
+    <div class="label">${name}</div>
+    <div class="reaction"></div>`;
+  el.dataset.color=name;
+  return el;
+}
+
+function safePlay(a){try{a.currentTime=0;a.play().catch(()=>{})}catch(e){}}
+
+function confettiBoom(){
+  confetti({particleCount:80,spread:100,origin:{y:0.6},colors:['#ff0','#0ff','#f0f']});
+}
+
+/* ===== GAME LOGIC ===== */
+function startRound(){
+  statusEl.style.color="#fff";
+  chosen=[];
+  nextBtn.style.display="none";
+  labArea.innerHTML="";
+  targetMix=MIXES[round-1];
+  statusEl.textContent=`Mix to create: ${targetMix.name.toUpperCase()}!`;
+
+  // shuffle base colors
+  const colors=Object.keys(BASE_COLORS).sort(()=>Math.random()-0.5);
+  colors.forEach(c=>{
+    const b=makeBottle(c,BASE_COLORS[c]);
+    b.onclick=()=>pickColor(c,b);
+    labArea.appendChild(b);
+  });
+  roundEl.textContent=round;
+}
+
+function pickColor(name,el){
+  if(chosen.length>=2) return;
+  el.style.transform="translateY(-8px) scale(1.05)";
+  chosen.push(name);
+
+  if(chosen.length===2){
+    checkResult();
+  }
+}
+
+function checkResult(){
+  const correct=targetMix.combo.every(c=>chosen.includes(c));
+  if(correct){
+    statusEl.style.color="#00ff88";
+    statusEl.textContent=`✅ Perfect! You made ${targetMix.name}! +1`;
+    safePlay(sndSuccess);
+    score++;
+    scoreEl.textContent=score;
+    confettiBoom();
+  }else{
+    statusEl.style.color="#ff6666";
+    statusEl.textContent=`💥 Wrong mix! That exploded!`;
+    safePlay(sndFail);
+  }
+
+  nextBtn.style.display="inline-block";
+  nextBtn.textContent= round<totalRounds ? "Next Round ➡️" : "See Results 🎯";
+  nextBtn.onclick=()=>{
+    round++;
+    if(round>totalRounds) endGame();
+    else startRound();
+  };
+}
+
+function endGame(){
+  labArea.innerHTML="";
+  statusEl.textContent=`🎨 Final Score: ${score}/${totalRounds}`;
+  nextBtn.textContent="🔁 Play Again";
+  nextBtn.onclick=()=>location.reload();
+}
+
+/* START */
+startRound();
+</script>
+
+</body>
+</html>
