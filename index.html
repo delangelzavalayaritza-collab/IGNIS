@@ -2,15 +2,22 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
 <title>IGNIS</title>
 
-<link rel="stylesheet" href="btn.css?v=2">
+<link rel="stylesheet" href="btn.css?v=3">
 
 <style>
+
 /* ======================
    PANTALLA GIRAR CELU
 ====================== */
+
 #rotateMessage{
   position:fixed;
   inset:0;
@@ -40,19 +47,26 @@
 /* ======================
    BOTON ACCESIBILIDAD
 ====================== */
+
 .voice-btn{
   position:fixed;
   bottom:20px;
   right:20px;
   z-index:9999;
+
   border:none;
   border-radius:50px;
   padding:12px 18px;
+
   background:rgba(255,102,0,.95);
   color:white;
   font-size:14px;
   cursor:pointer;
-  box-shadow:0 4px 15px rgba(255,100,0,.35);
+
+  box-shadow:
+  0 4px 15px
+  rgba(255,100,0,.35);
+
   transition:.3s;
 }
 
@@ -60,249 +74,380 @@
   transform:scale(1.05);
 }
 
-/* ============================================================
-   ESTILOS BASE / LAPTOP (Asegúrate de que .hero tenga esto)
-============================================================ */
-.hero {
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 /* ======================
-   DISPOSITIVOS MÓVILES
+   CELULAR
 ====================== */
+
 @media screen and (max-width:900px){
 
-  /* Vertical: Se muestra mensaje de girar */
+  /* VERTICAL */
   @media (orientation:portrait){
+
     #rotateMessage{
       display:flex;
     }
+
     .hero{
       display:none !important;
     }
   }
 
-  /* Horizontal: Ajustes críticos para pantallas bajitas */
+  /* HORIZONTAL */
   @media (orientation:landscape){
-    html, body{
-      overflow:hidden;
-      height:100dvh;
+
+    html,
+    body{
       width:100%;
-      margin:0;
-      padding:0;
+      height:100dvh;
+      overflow:hidden;
     }
 
-    /* Rediseño con Flexbox para centrar contenido sin encimarse */
     .hero{
-      min-height:100dvh;
-      height: 100dvh;
-      position:relative;
-      overflow:hidden;
-      padding:10px;
-      display: flex !important;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      box-sizing: border-box;
-    }
-
-    /* Título IGNIS más compacto para que no empuje todo hacia abajo */
-    .title{
-      font-size: 2.2rem !important; 
-      margin: 0 0 5px 0 !important;
-      position: relative;
-    }
-
-    /* Subtítulo LEARNING */
-    .subtitle{
-      font-size:1rem !important;
-      margin: 0 0 15px 0 !important;
-    }
-
-    /* Botón LET'S GO */
-    .fire-button{
-      position:relative;
-      z-index:20;
-      margin: 0 !important;
-      transform:scale(.9);
-    }
-
-    /* Logo UT en la esquina superior izquierda */
-    .ut-logo{
-      width:60px !important;
-      position:absolute !important;
-      top:10px !important;
-      left:10px !important;
-      z-index:10;
-    }
-
-    /* Dragón en la esquina inferior derecha sin estorbar las letras */
-    .floating-dragon{
-      width:110px !important; 
-      position:absolute !important;
-      right:15px !important;
-      bottom:10px !important;
-      z-index:4;
-    }
-
-    /* Llamitas del título escaladas */
-    .flames{
-      transform: translateX(-50%) scale(.6) !important;
-    }
-
-    .bubbles-container{
+      width:100%;
+      height:100dvh;
       overflow:hidden;
     }
 
-    /* Ajuste botón accesibilidad móvil */
     .voice-btn{
+      right:10px;
       bottom:10px;
-      left: 10px; /* Lo pasamos a la izquierda para que no choque con el dragón */
-      right: auto;
       font-size:12px;
-      padding:8px 12px;
+      padding:9px 12px;
     }
   }
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- AUDIO -->
-<audio id="introSound" loop preload="auto">
-  <source src="cutt.mp3" type="audio/mpeg">
+<audio
+id="introSound"
+loop
+preload="auto"
+>
+  <source
+  src="cutt.mp3"
+  type="audio/mpeg">
 </audio>
 
 <!-- MENSAJE GIRAR -->
 <div id="rotateMessage">
+
   <div class="rotate-box">
-    <h2>📱 Gira tu dispositivo</h2>
-    <p>Para jugar IGNIS mejor, usa tu teléfono en posición horizontal.</p>
+
+    <h2>
+      📱 Gira tu dispositivo
+    </h2>
+
+    <p>
+      Para jugar IGNIS mejor,
+      usa tu teléfono en
+      posición horizontal.
+    </p>
+
   </div>
+
 </div>
 
 <!-- CONTENIDO -->
 <div class="hero">
 
   <!-- BOTON ACCESIBILIDAD -->
-  <button id="voiceMode" class="voice-btn">🔊 Accesibilidad</button>
+  <button
+  id="voiceMode"
+  class="voice-btn"
+  >
+    🔊 Accesibilidad
+  </button>
 
   <!-- TITULO -->
-  <h1 class="title" id="titleVoice">
+  <h1
+  class="title"
+  id="titleVoice"
+  >
+
     IGNIS
+
     <span class="flames">
-      <span class="flame"></span><span class="flame"></span>
-      <span class="flame"></span><span class="flame"></span>
-      <span class="flame"></span><span class="flame"></span>
-      <span class="flame"></span><span class="flame"></span>
+
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+      <span class="flame"></span>
+
     </span>
+
   </h1>
 
-  <!-- SUB -->
-  <p class="subtitle" id="subtitleVoice">LEARNING</p>
+  <!-- SUBTITULO -->
+  <p
+  class="subtitle"
+  id="subtitleVoice"
+  >
+    LEARNING
+  </p>
 
   <!-- BOTON -->
-  <a href="menu.html" class="fire-button" id="fireBtn">LET'S GO!</a>
+  <a
+  href="menu.html"
+  class="fire-button"
+  id="fireBtn"
+  >
+    LET'S GO!
+  </a>
 
   <!-- BURBUJAS -->
   <div class="bubbles-container">
-    <span class="bubble"></span><span class="bubble"></span>
-    <span class="bubble"></span><span class="bubble"></span>
-    <span class="bubble"></span><span class="bubble"></span>
-    <span class="bubble"></span><span class="bubble"></span>
-    <span class="bubble"></span><span class="bubble"></span>
+
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+    <span class="bubble"></span>
+
   </div>
 
   <!-- LOGO -->
-  <a href="http://www.utaltamira.edu.mx/" target="_blank">
-    <img src="img/logo_ut.png" alt="Logo Universidad Tecnológica de Altamira" class="ut-logo">
+  <a
+  href="http://www.utaltamira.edu.mx/"
+  target="_blank"
+  >
+
+    <img
+    src="img/logo_ut.png"
+    alt="Logo Universidad Tecnológica de Altamira"
+    class="ut-logo">
+
   </a>
 
   <!-- DRAGON -->
-  <img src="img/dragon.png" alt="Dragón flotante" class="floating-dragon">
+  <img
+  src="img/dragon.png"
+  alt="Dragón flotante"
+  class="floating-dragon">
 
 </div>
 
 <script>
-/* ESCONDER BARRA NAVEGADOR */
-window.addEventListener("load", () => {
-  setTimeout(() => {
+
+/* ESCONDER BARRA */
+window.addEventListener(
+"load",
+()=>{
+
+  setTimeout(()=>{
+
     window.scrollTo(0,1);
+
   },100);
-});
+
+}
+);
 
 /* ======================
    ELEMENTOS
 ====================== */
-const voiceBtn = document.getElementById("voiceMode");
-const fireBtn = document.getElementById("fireBtn");
-const title = document.getElementById("titleVoice");
-const subtitle = document.getElementById("subtitleVoice");
-const audio = document.getElementById("introSound");
 
-let accessibilityOn = false;
+const voiceBtn =
+document.getElementById(
+"voiceMode"
+);
+
+const fireBtn =
+document.getElementById(
+"fireBtn"
+);
+
+const title =
+document.getElementById(
+"titleVoice"
+);
+
+const subtitle =
+document.getElementById(
+"subtitleVoice"
+);
+
+const audio =
+document.getElementById(
+"introSound"
+);
+
+let accessibilityOn =
+false;
 
 /* ======================
    FUNCION HABLAR
 ====================== */
+
 function speak(text){
+
   speechSynthesis.cancel();
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "es-MX";
+
+  const speech =
+  new SpeechSynthesisUtterance(text);
+
+  speech.lang =
+  "es-MX";
+
   speech.rate = 1;
   speech.pitch = 1;
-  speechSynthesis.speak(speech);
+
+  speechSynthesis.speak(
+    speech
+  );
 }
 
-/* SOLUCIÓN AUDIO: Escucha tanto toques como clics en cualquier parte */
-function iniciarAudio() {
-  audio.play().catch(error => console.log("Audio esperando interacción real:", error));
+/* ======================
+   AUDIO CELULAR
+====================== */
+
+function iniciarAudio(){
+
+  audio.volume = 0.5;
+
+  audio.play()
+  .catch(()=>{});
+
 }
-document.addEventListener("click", iniciarAudio, {once:true});
-document.addEventListener("touchstart", iniciarAudio, {once:true});
 
-/* PRESENTACION */
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    speak("Bienvenido a Ignis Learning. Si necesitas asistencia por voz, toca el botón de accesibilidad.");
-  }, 1800);
-});
+document.addEventListener(
+"touchstart",
+iniciarAudio,
+{once:true}
+);
 
-/* BOTON ACCESIBILIDAD */
+document.addEventListener(
+"click",
+iniciarAudio,
+{once:true}
+);
+
+/* ======================
+   PRESENTACION
+====================== */
+
+window.addEventListener(
+"load",
+()=>{
+
+setTimeout(()=>{
+
+speak(
+"Bienvenido a Ignis Learning. " +
+"Si necesitas asistencia por voz, " +
+"toca el botón de accesibilidad."
+);
+
+},1800);
+
+}
+);
+
+/* ======================
+   ACCESIBILIDAD
+====================== */
+
 function announceButton(){
-  speak(accessibilityOn ? "Desactivar voz" : "Activar voz");
+
+  speak(
+  accessibilityOn
+  ? "Desactivar voz"
+  : "Activar voz"
+  );
+
 }
 
-voiceBtn.addEventListener("mouseenter", announceButton);
-voiceBtn.addEventListener("touchstart", announceButton);
+voiceBtn.addEventListener(
+"mouseenter",
+announceButton
+);
 
-voiceBtn.addEventListener("click", () => {
-  accessibilityOn = !accessibilityOn;
-  if(accessibilityOn){
-    speak("Modo accesible activado.");
-    voiceBtn.innerHTML = "🔇 Desactivar Voz";
-  }else{
-    speechSynthesis.cancel();
-    voiceBtn.innerHTML = "🔊 Accesibilidad";
-  }
+voiceBtn.addEventListener(
+"touchstart",
+announceButton
+);
+
+voiceBtn.addEventListener(
+"click",
+()=>{
+
+accessibilityOn =
+!accessibilityOn;
+
+if(accessibilityOn){
+
+speak(
+"Modo accesible activado."
+);
+
+voiceBtn.innerHTML =
+"🔇 Desactivar Voz";
+
+}else{
+
+speechSynthesis.cancel();
+
+voiceBtn.innerHTML =
+"🔊 Accesibilidad";
+
+}
+
+}
+);
+
+/* ======================
+   LECTURA INTERACTIVA
+====================== */
+
+function voiceInteraction(
+element,
+text
+){
+
+element.addEventListener(
+"mouseenter",
+()=>{
+if(accessibilityOn)
+speak(text);
 });
 
-/* LECTURA INTERACTIVA */
-function voiceInteraction(element, text){
-  element.addEventListener("mouseenter", () => { if(accessibilityOn) speak(text); });
-  element.addEventListener("touchstart", () => { if(accessibilityOn) speak(text); });
+element.addEventListener(
+"touchstart",
+()=>{
+if(accessibilityOn)
+speak(text);
+});
+
 }
 
-voiceInteraction(title, "Ignis");
-voiceInteraction(subtitle, "Learning");
-voiceInteraction(fireBtn, "Lets Go. Presiona para comenzar.");
+voiceInteraction(
+title,
+"Ignis"
+);
+
+voiceInteraction(
+subtitle,
+"Learning"
+);
+
+voiceInteraction(
+fireBtn,
+"Lets Go. Presiona para comenzar."
+);
+
 </script>
 
 </body>
