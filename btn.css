@@ -463,56 +463,109 @@ height:12px;
 
 @media screen and (max-width:900px){
 
+  /* ======================
+     TITULO IGNIS
+  ====================== */
   .title{
-    top:4vh;
+    top:3vh;
     left:4vw;
 
     font-size:
     clamp(
-      2.5rem,
+      2.8rem,
       9vw,
-      5rem
+      5.2rem
     );
+
+    z-index:30;
   }
 
+  /* ======================
+     LEARNING
+  ====================== */
   .subtitle{
-    top:14vh;
-    left:4vw;
+    top:18vh; /* ↓ más abajo para que no choque */
+    left:4.5vw;
 
     font-size:
     clamp(
-      .9rem,
+      1rem,
       3vw,
       1.8rem
     );
+
+    z-index:30;
   }
 
+  /* ======================
+     LOGO UT
+  ====================== */
   .ut-logo{
-    width:90px;
+    top:3vh;
+    right:3vw;
+
+    width:115px; /* más visible */
+    z-index:30;
   }
 
+  /* ======================
+     DRAGON
+  ====================== */
   .floating-dragon{
     width:
     min(
-      45vw,
-      240px
-    );
+      60vw,
+      320px
+    ); /* MÁS GRANDE */
 
-    bottom:1vh;
+    bottom:0vh;
+    left:50%;
+
+    transform:
+    translateX(-50%);
+
+    z-index:12;
   }
 
+  /* ======================
+     BOTON LETS GO
+  ====================== */
   .fire-button{
-    right:4vw;
+    right:5vw;
+
+    top:58%; /* ↓ más abajo */
+
+    transform:
+    translateY(-50%);
 
     padding:
-    14px 24px;
+    15px 26px;
 
     font-size:1rem;
+    z-index:20;
   }
 
+  /* ======================
+     BURBUJAS
+  ====================== */
   .bubbles-container{
-    right:2vw;
-    top:46%;
-    transform:scale(.7);
+    right:3vw;
+    top:49%; /* mejor alineadas */
+
+    transform:
+    scale(.8);
+
+    z-index:1;
+  }
+
+  /* ======================
+     LLAMITAS DEL TITULO
+  ====================== */
+  .flames{
+    transform:
+    translateY(10%)
+    scale(.75);
+
+    z-index:-1;
   }
 }
