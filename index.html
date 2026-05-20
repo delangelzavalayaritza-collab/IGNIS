@@ -330,22 +330,36 @@ function startExperience(){
   if(firstInteraction)
   return;
 
-  firstInteraction =
-  true;
+  firstInteraction = true;
 
-  /* primero habla */
-  speak(
-    "Bienvenido a Ignis Learning. Si necesitas asistencia por voz, toca el botón de accesibilidad, que se encuentra en la parte inferior derecha."
+  /* despierta speech del celu */
+  const unlockSpeech =
+  new SpeechSynthesisUtterance("");
+
+  unlockSpeech.volume = 0;
+
+  speechSynthesis.speak(
+    unlockSpeech
   );
 
-  /* luego musica */
+  /* pequeña espera */
+  setTimeout(()=>{
+
+    speak(
+      "Bienvenido a Ignis Learning. Si necesitas asistencia por voz, toca el botón de accesibilidad, que se encuentra en la parte inferior derecha."
+    );
+
+  },300);
+
+  /* musica después */
   setTimeout(()=>{
 
     audio.play()
     .catch(()=>{});
 
-  },2500);
+  },3200);
 }
+
 
 /* laptop */
 document.addEventListener(
