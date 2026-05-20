@@ -333,18 +333,18 @@ function startExperience(){
   firstInteraction =
   true;
 
-  /* musica */
-  audio.play()
-  .catch(()=>{});
+  /* primero habla */
+  speak(
+    "Bienvenido a Ignis Learning. Si necesitas asistencia por voz, toca el botón de accesibilidad, que se encuentra en la parte inferior derecha."
+  );
 
-  /* voz bienvenida */
+  /* luego musica */
   setTimeout(()=>{
 
-    speak(
-      "Bienvenido a Ignis Learning. Si necesitas asistencia por voz, toca el botón de accesibilidad."
-    );
+    audio.play()
+    .catch(()=>{});
 
-  },700);
+  },2500);
 }
 
 /* laptop */
