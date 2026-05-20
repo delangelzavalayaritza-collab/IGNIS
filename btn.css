@@ -576,12 +576,17 @@ height:12px;
   }
 
   /* BURBUJAS MÁS ARRIBA */
-  .bubbles-container{
-    right:2vw;
+.bubbles-container{
+    right:5vw;
     top:49%;
+
+    width:130px; /* menos ancho */
+    height:80px;
 
     transform:
     translateY(-50%)
-    scale(.75);
-  }
+    scale(.65);
+
+    overflow:hidden;
+}
 }
