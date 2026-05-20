@@ -24,10 +24,11 @@ body{
 body{
   background:
   url("img/bg.jpeg")
-  no-repeat
-  center center;
+  no-repeat center center;
 
   background-size:cover;
+  background-position:center center;
+  background-attachment:scroll;
 
   font-family:
   'Luckiest Guy',
@@ -35,6 +36,7 @@ body{
 
   color:white;
   position:relative;
+  min-height:100vh;
 }
 
 /* ======================
@@ -84,7 +86,14 @@ body{
 
 .subtitle{
   position:absolute;
-  top:20vh;
+
+  top:
+  calc(
+    5vh +
+    clamp(4rem, 10vw, 10rem)
+    - 5px
+  );
+
   left:4.5vw;
 
   font-size:
@@ -219,7 +228,7 @@ height:12px;
   position:absolute;
 
   right:6vw;
-  top:50%;
+  top:52%;
 
   transform:
   translateY(-50%);
@@ -269,34 +278,6 @@ height:12px;
 }
 
 /* ======================
-   FUEGO BOTON
-====================== */
-
-@keyframes flamePulse{
-
-  0%{
-    box-shadow:
-      0 0 20px #ff6a00,
-      0 0 40px #ff4500,
-      0 0 60px #ff0000;
-  }
-
-  50%{
-    box-shadow:
-      0 0 30px #ff8c00,
-      0 0 70px #ff0000,
-      0 0 100px #ff7300;
-  }
-
-  100%{
-    box-shadow:
-      0 0 40px #ffa500,
-      0 0 90px #ff4500,
-      0 0 120px #ff0000;
-  }
-}
-
-/* ======================
    DRAGON
 ====================== */
 
@@ -309,11 +290,7 @@ height:12px;
   transform:
   translateX(-50%);
 
-  width:
-  min(
-    48vw,
-    700px
-  );
+  width:min(52vw,780px);
 
   animation:
   floatDragon
@@ -348,11 +325,7 @@ height:12px;
   top:4vh;
   right:4vw;
 
-  width:
-  min(
-    16vw,
-    220px
-  );
+  width:min(18vw,240px);
 
   z-index:20;
 
@@ -388,10 +361,13 @@ height:12px;
   position:absolute;
 
   right:5vw;
-  top:43%;
+  top:52%;
 
-  width:250px;
+  width:220px;
   height:120px;
+
+  transform:
+  translateY(-20px);
 
   overflow:visible;
   pointer-events:none;
@@ -427,6 +403,7 @@ height:12px;
   linear infinite;
 }
 
+/* posiciones */
 .bubble:nth-child(1){left:10%;animation-delay:0s;}
 .bubble:nth-child(2){left:25%;animation-delay:.3s;}
 .bubble:nth-child(3){left:40%;animation-delay:.5s;}
@@ -463,109 +440,46 @@ height:12px;
 
 @media screen and (max-width:900px){
 
-  /* ======================
-     TITULO IGNIS
-  ====================== */
   .title{
     top:3vh;
     left:4vw;
-
-    font-size:
-    clamp(
-      2.8rem,
-      9vw,
-      5.2rem
-    );
-
+    font-size:clamp(2.9rem,10vw,5rem);
     z-index:30;
   }
 
-  /* ======================
-     LEARNING
-  ====================== */
   .subtitle{
-    top:18vh; /* ↓ más abajo para que no choque */
-    left:4.5vw;
-
-    font-size:
-    clamp(
-      1rem,
-      3vw,
-      1.8rem
-    );
-
+    top:19vh;
+    left:4vw;
+    font-size:clamp(1rem,3vw,1.6rem);
     z-index:30;
   }
 
-  /* ======================
-     LOGO UT
-  ====================== */
   .ut-logo{
     top:3vh;
     right:3vw;
-
-    width:115px; /* más visible */
+    width:110px;
     z-index:30;
   }
 
-  /* ======================
-     DRAGON
-  ====================== */
   .floating-dragon{
-    width:
-    min(
-      60vw,
-      320px
-    ); /* MÁS GRANDE */
-
-    bottom:0vh;
+    width:min(60vw,320px);
+    bottom:0;
     left:50%;
-
-    transform:
-    translateX(-50%);
-
+    transform:translateX(-50%);
     z-index:12;
   }
 
-  /* ======================
-     BOTON LETS GO
-  ====================== */
   .fire-button{
-    right:5vw;
-
-    top:58%; /* ↓ más abajo */
-
-    transform:
-    translateY(-50%);
-
-    padding:
-    15px 26px;
-
+    right:4vw;
+    top:63%;
+    transform:translateY(-50%);
+    padding:15px 24px;
     font-size:1rem;
-    z-index:20;
   }
 
-  /* ======================
-     BURBUJAS
-  ====================== */
   .bubbles-container{
-    right:3vw;
-    top:49%; /* mejor alineadas */
-
-    transform:
-    scale(.8);
-
-    z-index:1;
-  }
-
-  /* ======================
-     LLAMITAS DEL TITULO
-  ====================== */
-  .flames{
-    transform:
-    translateY(10%)
-    scale(.75);
-
-    z-index:-1;
+    right:2vw;
+    top:56%;
+    transform:scale(.75);
   }
 }
