@@ -290,7 +290,7 @@ height:12px;
   transform:
   translateX(-50%);
 
-  width:min(52vw,780px);
+  width:min(58vw,860px);
 
   animation:
   floatDragon
@@ -314,7 +314,6 @@ height:12px;
     translateY(-20px);
   }
 }
-
 /* ======================
    LOGO UT
 ====================== */
@@ -354,6 +353,34 @@ height:12px;
 }
 
 /* ======================
+   ANIMACION BOTON FUEGO
+====================== */
+
+@keyframes flamePulse{
+
+  0%{
+    box-shadow:
+      0 0 20px #ff6a00,
+      0 0 40px #ff4500,
+      0 0 60px #ff0000;
+  }
+
+  50%{
+    box-shadow:
+      0 0 30px #ff8c00,
+      0 0 70px #ff0000,
+      0 0 100px #ff7300;
+  }
+
+  100%{
+    box-shadow:
+      0 0 40px #ffa500,
+      0 0 90px #ff4500,
+      0 0 120px #ff0000;
+  }
+}
+
+/* ======================
    BURBUJAS
 ====================== */
 
@@ -361,13 +388,13 @@ height:12px;
   position:absolute;
 
   right:5vw;
-  top:52%;
+  top:44%; /* MÁS ARRIBA */
 
   width:220px;
   height:120px;
 
   transform:
-  translateY(-20px);
+  translateY(-50%);
 
   overflow:visible;
   pointer-events:none;
@@ -404,16 +431,56 @@ height:12px;
 }
 
 /* posiciones */
-.bubble:nth-child(1){left:10%;animation-delay:0s;}
-.bubble:nth-child(2){left:25%;animation-delay:.3s;}
-.bubble:nth-child(3){left:40%;animation-delay:.5s;}
-.bubble:nth-child(4){left:55%;animation-delay:.8s;}
-.bubble:nth-child(5){left:70%;animation-delay:1s;}
-.bubble:nth-child(6){left:85%;animation-delay:1.3s;}
-.bubble:nth-child(7){left:15%;animation-delay:1.5s;}
-.bubble:nth-child(8){left:35%;animation-delay:1.8s;}
-.bubble:nth-child(9){left:60%;animation-delay:2s;}
-.bubble:nth-child(10){left:80%;animation-delay:2.3s;}
+
+.bubble:nth-child(1){
+  left:10%;
+  animation-delay:0s;
+}
+
+.bubble:nth-child(2){
+  left:25%;
+  animation-delay:.3s;
+}
+
+.bubble:nth-child(3){
+  left:40%;
+  animation-delay:.5s;
+}
+
+.bubble:nth-child(4){
+  left:55%;
+  animation-delay:.8s;
+}
+
+.bubble:nth-child(5){
+  left:70%;
+  animation-delay:1s;
+}
+
+.bubble:nth-child(6){
+  left:85%;
+  animation-delay:1.3s;
+}
+
+.bubble:nth-child(7){
+  left:15%;
+  animation-delay:1.5s;
+}
+
+.bubble:nth-child(8){
+  left:35%;
+  animation-delay:1.8s;
+}
+
+.bubble:nth-child(9){
+  left:60%;
+  animation-delay:2s;
+}
+
+.bubble:nth-child(10){
+  left:80%;
+  animation-delay:2.3s;
+}
 
 @keyframes riseFlame{
 
@@ -443,43 +510,78 @@ height:12px;
   .title{
     top:3vh;
     left:4vw;
-    font-size:clamp(2.9rem,10vw,5rem);
+
+    font-size:
+    clamp(
+      2.9rem,
+      10vw,
+      5rem
+    );
+
     z-index:30;
   }
 
   .subtitle{
     top:19vh;
     left:4vw;
-    font-size:clamp(1rem,3vw,1.6rem);
+
+    font-size:
+    clamp(
+      1rem,
+      3vw,
+      1.6rem
+    );
+
     z-index:30;
   }
 
+  /* LOGO MÁS VISIBLE */
   .ut-logo{
     top:3vh;
     right:3vw;
+
     width:110px;
     z-index:30;
   }
 
+  /* DRAGON MÁS GRANDE */
   .floating-dragon{
-    width:min(60vw,320px);
+    width:
+    min(
+      68vw,
+      380px
+    );
+
     bottom:0;
     left:50%;
-    transform:translateX(-50%);
+
+    transform:
+    translateX(-50%);
+
     z-index:12;
   }
 
+  /* BOTON MÁS ABAJO */
   .fire-button{
     right:4vw;
     top:63%;
-    transform:translateY(-50%);
-    padding:15px 24px;
+
+    transform:
+    translateY(-50%);
+
+    padding:
+    15px 24px;
+
     font-size:1rem;
   }
 
+  /* BURBUJAS MÁS ARRIBA */
   .bubbles-container{
     right:2vw;
-    top:56%;
-    transform:scale(.75);
+    top:49%;
+
+    transform:
+    translateY(-50%)
+    scale(.75);
   }
 }
